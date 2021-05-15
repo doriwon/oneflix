@@ -5,6 +5,7 @@ import Home from "Routes/Home";
 import TV from "Routes/TV";
 import Search from "Routes/Search";
 
+// eslint-disable-next-line
 export default () => (
     <Router>
         <>
