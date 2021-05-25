@@ -8,7 +8,7 @@ const api = axios.create({
     }
 });
 
-api.get("tv/popular");
+// api.get("tv/popular");
 
 export const tvApi = {
     topRated: () => api.get("tv/top_rated"),
