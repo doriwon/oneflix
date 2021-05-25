@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
-import Loader from "Components/Loader";
 import Helmet from "react-helmet";
+import Loader from "Components/Loader";
 import Message from "Components/Message";
+import DetailTab from "Components/DetailTab";
+import Youtube from "./Youtube";
+import Infomation from "./Infomation";
+import Seasons from "./Seasons";
 
 const Container = styled.div`
     height: calc(100vh - 50px);
@@ -31,10 +36,11 @@ const Content = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
+    justify-content: center;
     z-index: 1;
 `;
 const Cover = styled.div`
-    width: 30%;
+    width: 525px;
     height: 100%;
     background-image: url(${props => props.bgImage});
     background-size: cover;
@@ -43,13 +49,23 @@ const Cover = styled.div`
 `;
 
 const Data = styled.div`
-    width: 70%;
+    width: 800px;
     margin-left: 10px;
 `;
 
 const Title = styled.h1`
     font-size: 32px;
     margin-bottom: 20px;
+`;
+
+const ImdbLink = styled.a`
+    background: url(https://m.media-amazon.com/images/S/sash/oZ5kbUITU-kLrpY.png) no-repeat center;
+    background-size: contain;
+    width: 46px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 15px;
 `;
 
 const InfoContainer = styled.div`
@@ -68,8 +84,15 @@ const Overview = styled.p`
     line-height: 1.5;
     width: 50%;
 `;
+const DetailCont = styled.div`
+    background: rgba(20,20,20,0.8);
+    padding: 30px;
+    max-width: 799px;
+    height: 546px;
+    overflow-y: auto;
+`;
 
-const DetailPresenter = ({ result, error, loading }) => (
+const DetailPresenter = ({ result, error, loading, isMovie }) => (
     loading ? (
         <>
             <Helmet>
@@ -77,6 +100,8 @@ const DetailPresenter = ({ result, error, loading }) => (
             </Helmet>
             <Loader />
         </>
+    ) : error ? (
+        <Message />
     ) : (
         <Container>
             <Helmet>
@@ -99,7 +124,11 @@ const DetailPresenter = ({ result, error, loading }) => (
                         {result.original_title
                             ? result.original_title
                             : result.original_name}
+                        {result.imdb_id ? (
+                            <ImdbLink target="_blank" href={`https://www.imdb.com/title/${result.imdb_id}`} />
+                        ) : null}
                     </Title>
+
                     <InfoContainer>
                         <Info>
                             {result.release_date
@@ -120,8 +149,15 @@ const DetailPresenter = ({ result, error, loading }) => (
                         </Info>
                     </InfoContainer>
                     <Overview>{result.overview}</Overview>
+                    <DetailTab isMovie={isMovie}></DetailTab>
+                    <DetailCont>
+                        <Route path="/:type/:id/youtube" render={() => <Youtube videos={result.videos.results} />} />
+                        <Route path="/:type/:id/infomation" render={() => <Infomation companies={result.production_companies} countries={result.production_countries} />} />
+                        <Route path="/tv/:id/seasons" render={() => <Seasons seasons={result.seasons} />} />
+                    </DetailCont>
                 </Data>
             </Content>
+            {isMovie ? <></> : <></>}
         </Container >
     )
 );
