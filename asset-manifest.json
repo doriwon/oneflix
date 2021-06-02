@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/oneflix/static/js/main.226fbfe7.chunk.js",
-    "main.js.map": "/oneflix/static/js/main.226fbfe7.chunk.js.map",
+    "main.js": "/oneflix/static/js/main.6dd627e9.chunk.js",
+    "main.js.map": "/oneflix/static/js/main.6dd627e9.chunk.js.map",
     "runtime-main.js": "/oneflix/static/js/runtime-main.25d68c4f.js",
     "runtime-main.js.map": "/oneflix/static/js/runtime-main.25d68c4f.js.map",
     "static/js/2.e4b877c2.chunk.js": "/oneflix/static/js/2.e4b877c2.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.25d68c4f.js",
     "static/js/2.e4b877c2.chunk.js",
-    "static/js/main.226fbfe7.chunk.js"
+    "static/js/main.6dd627e9.chunk.js"
   ]
 }
