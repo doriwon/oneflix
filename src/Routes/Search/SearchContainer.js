@@ -4,74 +4,74 @@ import { movieApi, tvApi } from "api";
 
 // eslint-disable-next-line
 export default class extends React.Component {
-    state = {
-        movieResults: null,
-        tvResults: null,
-        searchTerm: "",
-        error: null,
-        loading: false
-    };
+  state = {
+    movieResults: null,
+    tvResults: null,
+    searchTerm: "",
+    error: null,
+    loading: false,
+  };
 
-    /*
+  /*
     searchTerm: "검색", 단어 넣고 테스트용
     componentDidMount() {
         this.handleSubmit();
     }*/
 
-    handleSubmit = (event) => {
-        event.preventDefault(); //submit 시, 새로고침 방지
-        const { searchTerm } = this.state;
-        if (searchTerm !== "") {
-            this.searchByTerm();
-        }
-    };
-
-    updateTerm = (event) => {
-        const {
-            target: { value }
-        } = event;
-        // console.log(value);
-        this.setState({
-            searchTerm: value
-        });
-    };
-
-    searchByTerm = async () => {
-        const { searchTerm } = this.state;
-        this.setState({ loading: true });
-        try {
-            const {
-                data: { results: movieResults }
-            } = await movieApi.search(searchTerm);
-            const {
-                data: { results: tvResults }
-            } = await tvApi.search(searchTerm);
-            this.setState({
-                movieResults,
-                tvResults
-            });
-        } catch {
-            this.setState({
-                error: "Can't find results."
-            });
-        } finally {
-            this.setState({ loading: false });
-        }
-    };
-
-    render() {
-        const { movieResults, tvResults, searchTerm, error, loading } = this.state;
-        // console.log(this.state)
-        return (
-            <SearchPresenter
-                movieResults={movieResults}
-                tvResults={tvResults}
-                error={error}
-                loading={loading}
-                searchTerm={searchTerm}
-                handleSubmit={this.handleSubmit}
-                updateTerm={this.updateTerm}
-            />
-        );
+  handleSubmit = (event) => {
+    event.preventDefault(); //submit 시, 새로고침 방지
+    const { searchTerm } = this.state;
+    if (searchTerm !== "") {
+      this.searchByTerm();
     }
+  };
+
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    // console.log(value);
+    this.setState({
+      searchTerm: value,
+    });
+  };
+
+  searchByTerm = async () => {
+    const { searchTerm } = this.state;
+    this.setState({ loading: true });
+    try {
+      const {
+        data: { results: movieResults },
+      } = await movieApi.search(searchTerm);
+      const {
+        data: { results: tvResults },
+      } = await tvApi.search(searchTerm);
+      this.setState({
+        movieResults,
+        tvResults,
+      });
+    } catch {
+      this.setState({
+        error: "Can't find results.",
+      });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  render() {
+    const { movieResults, tvResults, searchTerm, error, loading } = this.state;
+    // console.log(this.state)
+    return (
+      <SearchPresenter
+        movieResults={movieResults}
+        tvResults={tvResults}
+        error={error}
+        loading={loading}
+        searchTerm={searchTerm}
+        handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
+      />
+    );
+  }
 }

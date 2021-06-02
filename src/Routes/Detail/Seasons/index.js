@@ -1,3 +1,3 @@
-import SeasonsContainer from './SeasonsContainer';
+import SeasonsContainer from "./SeasonsContainer";
 
 export default SeasonsContainer;

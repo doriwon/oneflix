@@ -1,3 +1,3 @@
-import InfomationContainer from './InfomationContainer';
+import InfomationContainer from "./InfomationContainer";
 
 export default InfomationContainer;
